@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id('ingredient_id');
-            $table->string('ingredient_name', 50);
+            $table->string('ingredient_name', 50)->unique();
             $table->enum('unit', ['kg', 'g', 'l', 'ml'])->default('g');
             $table->timestamps();
         });

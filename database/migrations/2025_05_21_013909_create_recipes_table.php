@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recipe_prepares', function (Blueprint $table) {
+        Schema::create('recipes', function (Blueprint $table) {
             $table->id('recipe_id');
-            $table->string('cuisine_type', 50);
-            $table->unsignedInteger('step_number');
+            $table->string('cuisine_type', 50)->unique();
             $table->string('desc_step');
             $table->string('cook_time', 25);
-            $table->string('create_by', 50);
+            $table->string('created_by', 50);
             $table->timestamps();
 
-            $table->foreign('create_by')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('created_by')->references('user_id')->on('users')->onDelete('cascade');
         });
     }
 

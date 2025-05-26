@@ -11,14 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('recipe_ingredient', function (Blueprint $table) {
+        Schema::create('recipe_ingredients', function (Blueprint $table) {
             $table->unsignedBigInteger('recipe_id');
             $table->unsignedBigInteger('ingredient_id');
             $table->float('quantity', 8, 2);
+            $table->enum('units', ['kg', 'g', 'l', 'ml'])->default('g');
             $table->primary(['recipe_id', 'ingredient_id']);
             $table->timestamps();
 
-            $table->foreign('recipe_id')->references('recipe_id')->on('recipe_prepares')->onDelete('cascade');
+            $table->foreign('recipe_id')->references('recipe_id')->on('recipes')->onDelete('cascade');
             $table->foreign('ingredient_id')->references('ingredient_id')->on('ingredients')->onDelete('cascade');
         });
     }

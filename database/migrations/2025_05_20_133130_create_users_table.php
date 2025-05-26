@@ -18,12 +18,14 @@ return new class extends Migration
             $table->string('email', 50)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 80);
+            $table->string('image')->nullable();
+            $table->enum('status', ['active', 'inactive'])->default('active');
             $table->enum('gender', ['male', 'female', 'other'])->default('male');
             $table->date('dob');
             $table->float('height', 3, 2);
             $table->float('weight', 3, 2);
             $table->string('address', 100);
-            $table->string('note', 200);
+            $table->string('note');
             $table->enum('role', ['user', 'admin'])->default('user');
             $table->rememberToken();
             $table->timestamps();

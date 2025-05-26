@@ -20,7 +20,7 @@ return new class extends Migration
             $table->unsignedBigInteger('recipe_id');
             $table->timestamps();
 
-            $table->foreign('recipe_id')->references('recipe_id')->on('recipe_prepares')->onDelete('cascade');
+            $table->foreign('recipe_id')->references('recipe_id')->on('recipes')->onDelete('cascade');
         });
     }
 

@@ -11,14 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('plan_meal_menu', function (Blueprint $table) {
-            $table->enum('time', ['breakfast', 'lunch', 'dinner'])->default('breakfast');
-            $table->unsignedBigInteger('plan_id');
+        Schema::create('category_meals', function (Blueprint $table) {
+            $table->unsignedBigInteger('category_id');
             $table->unsignedBigInteger('meal_id');
-            $table->primary(['plan_id', 'meal_id']);
+            $table->primary(['category_id', 'meal_id']);
             $table->timestamps();
 
-            $table->foreign('plan_id')->references('plan_id')->on('meal_plans')->onDelete('cascade');
+            $table->foreign('category_id')->references('category_id')->on('categories')->onDelete('cascade');
             $table->foreign('meal_id')->references('meal_id')->on('meals')->onDelete('cascade');
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('plan_meal_menu');
+        Schema::dropIfExists('category_meals');
     }
 };
