@@ -6,14 +6,12 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('category_meals', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id');
-            $table->unsignedBigInteger('meal_id');
+            $table->string('category_id', 50);
+            $table->string('meal_id', 50); // ✅ Đảm bảo đúng kiểu string
+
             $table->primary(['category_id', 'meal_id']);
             $table->timestamps();
 
@@ -22,9 +20,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('category_meals');

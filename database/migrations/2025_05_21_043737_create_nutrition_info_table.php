@@ -12,15 +12,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('nutrition_info', function (Blueprint $table) {
-            $table->id('nutrition_id');
-            $table->float('protein', 8, 2);
-            $table->float('fat', 8, 2);
-            $table->float('carbohydrate', 8, 2);
-            $table->float('calories', 8, 2);
-            $table->unsignedBigInteger('recipe_id');
+            // Nếu recipes.recipe_id là string(50):
+            $table->string('recipe_id', 50);
+
+            // Các cột dinh dưỡng ví dụ
+            $table->float('calories');
+            $table->float('protein');
+            // … các cột khác …
+
             $table->timestamps();
 
-            $table->foreign('recipe_id')->references('recipe_id')->on('recipes')->onDelete('cascade');
+            // Khóa ngoại phải khớp kiểu
+            $table->foreign('recipe_id')
+                  ->references('recipe_id')
+                  ->on('recipes')
+                  ->onDelete('cascade');
         });
     }
 

@@ -6,13 +6,10 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('recommends', function (Blueprint $table) {
-            $table->id('recommend_id');
+            $table->string('recommend_id', 50)->primary(); // UUID
             $table->string('criteria')->nullable();
             $table->string('user_id', 50);
             $table->timestamps();
@@ -21,11 +18,8 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('reccommends');
+        Schema::dropIfExists('recommends');
     }
 };

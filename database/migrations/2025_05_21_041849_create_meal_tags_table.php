@@ -6,14 +6,13 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('meal_tags', function (Blueprint $table) {
-            $table->unsignedBigInteger('tag_id');
-            $table->unsignedBigInteger('meal_id');
+            // Cả 2 ID đều là string(50) vì meals & tags đều dùng UUID string
+            $table->string('tag_id', 50);
+            $table->string('meal_id', 50);
+
             $table->primary(['tag_id', 'meal_id']);
             $table->timestamps();
 
@@ -22,11 +21,8 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
-        Schema::dropIfExists('meal_tag');
+        Schema::dropIfExists('meal_tags'); // ✅ đúng tên bảng
     }
 };

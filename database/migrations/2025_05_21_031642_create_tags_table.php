@@ -6,21 +6,16 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('tags', function (Blueprint $table) {
-            $table->id('tag_id');
+            // Sửa từ $table->id() thành string UUID
+            $table->string('tag_id', 50)->primary();  // ✅ dùng UUID dạng chuỗi
             $table->string('tag_name', 50)->unique();
             $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('tags');
