@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('recommends', function (Blueprint $table) {
             $table->id('recommend_id');
             $table->string('criteria')->nullable();
-            $table->string('user_id', 50);
+            $table->string('profile_id', 50);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('user_id')->on('users');
+            $table->foreign('profile_id')->references('profile_id')->on('profiles');
         });
     }
 

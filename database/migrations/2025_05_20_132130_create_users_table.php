@@ -13,20 +13,9 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->string('user_id', 50)->primary();
-            $table->string('user_name', 50);
-            $table->string('phone', 10);
             $table->string('email', 50)->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password', 80);
-            $table->string('image')->nullable();
-            $table->enum('status', ['active', 'inactive'])->default('active');
-            $table->enum('gender', ['male', 'female', 'other'])->default('male');
-            $table->date('dob');
-            $table->float('height', 3, 2);
-            $table->float('weight', 3, 2);
-            $table->string('address', 100);
-            $table->string('note');
-            $table->enum('role', ['user', 'admin'])->default('user');
             $table->rememberToken();
             $table->timestamps();
         });

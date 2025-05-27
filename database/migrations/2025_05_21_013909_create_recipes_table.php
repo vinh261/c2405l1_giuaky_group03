@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('created_by', 50);
             $table->timestamps();
 
-            $table->foreign('created_by')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('created_by')->references('profile_id')->on('profiles')->onDelete('cascade');
         });
     }
 

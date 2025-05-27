@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('plan_name', 50);
             $table->date('start_date');
             $table->date('end_date');
-            $table->string('user_id', 50);
+            $table->string('profile_id', 50);
             $table->timestamps();
 
-            $table->foreign('user_id')->references('user_id')->on('users')->onDelete('cascade');
+            $table->foreign('profile_id')->references('profile_id')->on('profiles')->onDelete('cascade');
         });
     }
 
