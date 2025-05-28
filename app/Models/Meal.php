@@ -2,20 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use App\Models\Category;
 
 class Meal extends Model
 {
-    use HasFactory;
-
-    protected $table = 'meals'; // không bắt buộc nếu tên chuẩn
     protected $primaryKey = 'meal_id';
     public $incrementing = false;
     protected $keyType = 'string';
 
     protected $fillable = [
-        'meal_id',
         'meal_name',
         'slug',
         'description',
@@ -24,4 +21,17 @@ class Meal extends Model
         'image',
         'recipe_id',
     ];
+
+    /**
+     * Quan hệ many-to-many với Category qua bảng pivot category_meals
+     */
+    public function categories(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            Category::class,      // Model bên kia
+            'category_meals',     // tên pivot table
+            'meal_id',            // foreign key trỏ về Meal
+            'category_id'         // foreign key trỏ về Category
+        );
+    }
 }

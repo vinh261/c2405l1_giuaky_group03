@@ -5,7 +5,17 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+
 use App\Models\User;
+use Database\Seeders\CategorySeeder;
+use Database\Seeders\RecipeSeeder;
+use Database\Seeders\IngredientSeeder;
+use Database\Seeders\MealPlanSeeder;
+use Database\Seeders\FavoriteSeeder;
+use Database\Seeders\MealSeeder;
+use Database\Seeders\RecommendSeeder;
+use Database\Seeders\NutritionInfoSeeder;
+use Database\Seeders\PlanMealMenuSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -28,27 +38,17 @@ class DatabaseSeeder extends Seeder
             ]
         );
 
-        // 2) Gọi CategorySeeder
-        $this->call(CategorySeeder::class);
-
-        // 3) Gọi RecipeSeeder
-        $this->call(RecipeSeeder::class);
-
-        // (nếu còn seeder khác, cũng gọi ở đây)
-        // 4) Gọi IngredientSeeder
-        $this->call(IngredientSeeder::class);
-
-        // 5) Gọi MealPlanSeeder
-        $this->call(MealPlanSeeder::class);
-        // 6) Gọi favorite seeder nếu có
-        $this->call(FavoriteSeeder::class);
-        // 7) Gọi MealSeeder nếu có
-        $this->call(MealSeeder::class);
-        // 8) Gọi recommend seeder nếu có
-        $this->call(RecommendSeeder::class);
-        // 9) Gọi nutrition info seeder nếu có
-        $this->call(NutritionInfoSeeder::class);
-        // 10) Gọi plan meal menu seeder nếu có
-        $this->call(PlanMealMenuSeeder::class);
+        // 2) Gọi các seeder theo đúng thứ tự:
+        $this->call([
+            CategorySeeder::class,
+            RecipeSeeder::class,
+            IngredientSeeder::class,
+            MealPlanSeeder::class,
+            FavoriteSeeder::class,
+            MealSeeder::class,
+            RecommendSeeder::class,
+            NutritionInfoSeeder::class,
+            PlanMealMenuSeeder::class,
+        ]);
     }
 }

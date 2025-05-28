@@ -12,6 +12,8 @@ use App\Http\Controllers\API\NutritionInfoController;
 use App\Http\Controllers\API\PlanMealMenuController;
 use App\Http\Controllers\API\UserController;
 
+
+
 Route::get('users',      [UserController::class, 'index']);
 Route::get('users/{id}', [UserController::class, 'show']);
 // danh sách tất cả
