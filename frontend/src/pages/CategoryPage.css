@@ -1,0 +1,13 @@
+.category-title {
+    text-align: center;
+    color: #4caf50;
+    font-size: 2rem;
+    margin: 2rem 0;
+  }
+
+  .product-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+  }

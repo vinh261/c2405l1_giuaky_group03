@@ -1,0 +1,79 @@
+/* src/components/QualityCriteria.css */
+.quality-criteria {
+    text-align: center;
+    padding: 10px 10px;       /* ← chỉnh padding nếu muốn tăng khoảng trắng quanh toàn section */
+  }
+
+  .qc__title {
+    font-size: 2rem;           /* ← tăng giá trị này để tiêu đề lớn hơn, ví dụ 2.5rem */
+    color: #2e7d32;            /* màu chữ */
+    margin-bottom: 20px;       /* ← chỉnh khoảng cách giữa tiêu đề và gạch chân */
+    position: relative;
+    display: inline-block;
+  }
+
+  .qc__title::after {
+    content: '';
+    width: 60px;               /* ← chỉnh độ dài gạch chân */
+    height: 2px;               /* ← chỉnh độ dày gạch chân */
+    background: #2e7d32;
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .qc__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 80px;                 /* ← chỉnh khoảng cách ngang giữa các mục */
+    margin-top: 40px;          /* ← chỉnh khoảng cách trên của nhóm icon */
+  }
+
+  .qc__item {
+    width: 180px;              /* ← chỉnh rộng mỗi item */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .qc__item img {
+    width: 90px;               /* ← tăng lên 80px hoặc 100px để icon to hơn */
+    height: 90px;              /* ← tương ứng chỉnh height */
+    margin-bottom: 12px;       /* ← chỉnh khoảng cách giữa icon và label */
+  }
+
+  .qc__item p {
+    font-size: 1rem;        /* ← chỉnh font-size của nhãn, ví dụ 1.1rem */
+    color: #333;
+  }
+/* wrapper giữ img và chứa pseudo-element quét sáng */
+.qc__icon-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* pseudo-element hình dải sáng */
+  .qc__icon-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: skewX(-25deg);
+    transition: none;
+  }
+
+  /* khi hover, chạy animation sweep */
+  .qc__icon-wrapper:hover::before {
+    animation: sweep 0.7s ease-in-out forwards;
+  }
+
+  /* keyframes di chuyển dải sáng qua ảnh */
+  @keyframes sweep {
+    from { left: -75%; }
+    to   { left: 125%; }
+  }

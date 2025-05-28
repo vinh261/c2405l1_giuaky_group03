@@ -1,0 +1,35 @@
+/* src/components/BannerSlider.css */
+.banner-slider {
+    /* full-bleed slider */
+    position: relative;
+    width: 100vw;
+    height: clamp(50vh, 60vw, 800px); /* fluid height between 50vh and 800px */
+    margin-top: 1rem;            /* space below header */
+    margin-left: calc(50% - 50vw);
+    overflow: hidden;
+    z-index: 0;
+  }
+
+  .banner-slider .slide {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    width: 100vw;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0;
+    transition: left 0.8s ease, opacity 0.8s ease;
+  }
+
+  .banner-slider .slide.active {
+    left: 0;
+    opacity: 1;
+  }
+
+  /* Responsive: ensure slider height adapts */
+  @media (max-width: 768px) {
+    .banner-slider {
+      height: clamp(40vh, 50vw, 500px);
+    }
+  }
