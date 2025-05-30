@@ -10,6 +10,7 @@ return [
 
     // Không dùng ['*'] khi supports_credentials = true
     'allowed_origins' => [
+        'http://localhost:5173',
         'http://localhost:5174',
         // nếu lúc deploy xài domain khác thì thêm vào đây
     ],
