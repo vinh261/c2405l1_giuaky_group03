@@ -12,14 +12,6 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Chỉ dành cho admin.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-    }
-
-    /**
      * Chi tiết user
      */
     public function show($id)

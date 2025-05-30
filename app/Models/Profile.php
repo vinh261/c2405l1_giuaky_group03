@@ -40,7 +40,6 @@ class Profile extends Authenticatable
         'weight',
         'job',
         'image',
-        'status',
         'role',
     ];
 

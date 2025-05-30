@@ -8,6 +8,7 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\MealController;
 use App\Http\Controllers\MealPlanController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RecipeController;
 use App\Http\Controllers\RecommendController;
 use App\Http\Controllers\TagController;
@@ -35,6 +36,21 @@ Route::middleware('auth:sanctum')->get('/role', function (Request $request) {
     $profile = Profile::where('profile_id', $request->user()->user_id)->first();
     return response()->json([
         'role' => $profile->role ?? 'user',
+    ]);
+});
+
+/**
+ * Lấy thông tin người dùng đã đăng nhập.
+ * Chỉ trả về khi người dùng đã xác thực.
+ */
+Route::middleware('auth:sanctum')->get('/me', function (Request $request) {
+    $user = $request->user();
+    $user->load('profile'); // Tải relationship 'profile'
+    return response()->json([
+        'user_id' => $user->user_id,
+        'email' => $user->email,
+        'profile' => $user->profile,
+        'role' => $user->profile->role ?? 'user', // Lấy role từ profile
     ]);
 });
 
@@ -90,7 +106,7 @@ Route::middleware('auth:sanctum', 'users')->prefix('user')->group(function () {
  * Admin
  */
 Route::middleware('auth:sanctum', 'admin')->prefix('admin')->group(function () {
-    Route::resource('profile', UserController::class)->except(['create', 'edit'])->names([
+    Route::resource('profile', ProfileController::class)->except(['create', 'edit'])->names([
         'index' => 'profile.index',
         'show' => 'profile.show',
         'store' => 'profile.store',

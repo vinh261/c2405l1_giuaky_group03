@@ -5,22 +5,15 @@ namespace App\Http\Controllers;
 use App\Http\Validators\ValidateUser;
 use App\Models\Profile;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
-    /**
-     * Chỉ dành cho admin.
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-        $this->middleware('admin');
-    }
-
     public function index()
     {
         try {
@@ -54,15 +47,31 @@ class ProfileController extends Controller
             $userData = ValidateUser::validateUserData($request, false);
             $profileData = ValidateUser::validateProfileUser($request, false);
 
+            $userData['password'] = Hash::make($userData['password']);
+            $userData['user_id'] = User::generateUserId();
             $user = User::create($userData);
 
+            /**
+             * Xử lý định dạng 'dob'.
+             * Nếu 'dob' = true thì dùng Carbon parse chuỗi ISO 8601 và format lại.
+             * Xử lý định dạng 'address'.
+             * Gán profile_id = user_id vừa tạo.
+             * Tạo profile.
+             */
+            if (!empty($profileData['dob'])) {
+                $profileData['dob'] = Carbon::parse($profileData['dob'])->format('Y-m-d');
+            } else {
+                $profileData['dob'] = null;
+            }
+
+            $profileData['address'] = ValidateUser::addressData($request);
             $profileData['profile_id'] = $user->user_id;
             $profile = Profile::create($profileData);
 
             return response()->json([
                 'success' => true,
                 'message' => 'Thêm mới thành công.',
-                'profileUser' => $profile,
+                'profileUser' => $profile->load('user'),
             ], 201);
         }catch (Exception $e) {
             return response()->json([

@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdminMiddleware
@@ -24,7 +25,14 @@ class AdminMiddleware
 
         $user = Auth::user();
 
-        if ($user->role !== 'admin') {
+        // Kiểm tra nếu user không có profile
+        if (!$user->profile) {
+            return response()->json([
+                'message' => 'Không tìm thấy thông tin profile của người dùng.',
+            ], 403);
+        }
+
+        if ($user->profile->role !== 'admin') {
             return response()->json([
                 'message' => 'Bạn không có quyền truy cập.',
             ], 403);

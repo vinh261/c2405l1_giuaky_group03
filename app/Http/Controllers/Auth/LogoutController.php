@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class LogoutController extends Controller
 {
@@ -14,7 +15,12 @@ class LogoutController extends Controller
         /**
          * Logout, xóa token
          */
-        $request->user()->currentAccessToken()->delete();
-        return response()->json(['message' => 'Đăng xuất thành công']);
+        Auth::guard('web')->logout(); // <<< Dùng web guard
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response()->json(['message' => 'Đã đăng xuất thành công']);
     }
 }
