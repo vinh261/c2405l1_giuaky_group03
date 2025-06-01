@@ -1,0 +1,100 @@
+/* Wrapper chính */
+.product-detail-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  /* Tiêu đề "Chi Tiết Package" */
+  .product-detail__title {
+    text-align: center;
+    font-size: 2rem;
+    color: #388e3c;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .product-detail__title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 3px;
+    background: #388e3c;
+    margin: 0.5rem auto 0;
+  }
+
+  /* Layout flex hai cột */
+  .product-detail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+  }
+
+  /* Cột ảnh */
+  .product-detail__img {
+    flex: 1 1 45%;
+  }
+  .product-detail__img img {
+    width: 100%;
+    border: 4px solid #c8e6c9;
+    border-radius: 8px;
+  }
+
+  /* Cột thông tin */
+  .product-detail__info {
+    flex: 1 1 50%;
+  }
+
+  /* Tên sản phẩm */
+  .product-detail__name {
+    font-size: 1.75rem;
+    color: #388e3c;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Giá */
+  .product-detail__price {
+    font-size: 1.5rem;
+    color: #d32f2f;
+    margin-bottom: 1rem;
+  }
+
+  /* Mô tả */
+  .product-detail__desc {
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+
+  /* Số lượng */
+  .product-detail__quantity {
+    margin-bottom: 1.5rem;
+  }
+  .product-detail__quantity label {
+    font-weight: bold;
+    margin-right: 0.5rem;
+  }
+  .product-detail__quantity input {
+    width: 60px;
+    padding: 0.3rem;
+    border: 2px solid #388e3c;
+    border-radius: 4px;
+  }
+
+  /* Liên hệ đặt hàng */
+  .product-detail__contact h4 {
+    margin-bottom: 0.5rem;
+    color: #388e3c;
+  }
+  .contact-buttons a {
+    display: inline-block;
+    margin-right: 0.5rem;
+    background: #388e3c;
+    color: #fff;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background 0.2s ease;
+  }
+  .contact-buttons a:hover {
+    background: #2e7d32;
+  }

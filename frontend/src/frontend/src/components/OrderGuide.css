@@ -1,0 +1,66 @@
+/* src/components/OrderGuide.css */
+.order-guide {
+    text-align: center;
+    padding: clamp(2rem, 5vw, 4rem) 0;
+  }
+
+  .order-guide__steps {
+    display: flex;
+    flex-wrap: wrap;                            /* cho phép bẻ dòng khi hẹp */
+    justify-content: center;
+    gap: clamp(1rem, 5vw, 3rem);                /* khoảng cách linh hoạt */
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .order-guide__step {
+    flex: 1 1 clamp(120px, 20vw, 200px);         /* flex-basis fluid */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .order-guide__step img {
+    width: clamp(80px, 15vw, 140px);             /* scale icon */
+    height: auto;
+    margin: 0;
+  }
+
+  .order-guide__step p {
+    margin: clamp(0.25rem, 1vw, 0.75rem) 0 0;
+    font-size: clamp(0.8rem, 1vw, 1rem);
+    font-weight: 500;
+    color: #1f2a44;
+    line-height: 1.2;
+    text-transform: uppercase;
+  }
+/* wrapper giữ img và chứa pseudo-element quét sáng */
+.og__icon-wrapper {
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* pseudo-element hình dải sáng */
+  .og__icon-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: skewX(-25deg);
+  }
+
+  /* khi hover, chạy animation sweep */
+  .order-guide__step:hover .og__icon-wrapper::before {
+    animation: sweep 0.7s ease-in-out forwards;
+  }
+
+  /* keyframes di chuyển dải sáng qua icon */
+  @keyframes sweep {
+    from { left: -75%; }
+    to   { left: 125%; }
+  }
+

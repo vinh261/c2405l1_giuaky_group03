@@ -1,0 +1,100 @@
+/* src/components/NewsSection.css */
+.news-section {
+    position: relative;
+    text-align: center;
+    padding: clamp(3rem, 6vw, 4rem) 20px; /* giảm padding */
+    background: url('../assets/images/bannernew.jpg') center/cover no-repeat; /* banner nền */
+    background-size: cover;
+    overflow: hidden;
+  }
+
+  .news-section::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4); /* overlay tối */
+  }
+
+  .news-section__title {
+    position: relative;
+    z-index: 1;
+    font-size: 2.2rem;
+    color: #fff;
+    margin-bottom: 20px;
+  }
+  .news-section__title::after {
+    content: '';
+    width: 60px;
+    height: 3px;
+    background: #fff;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  /* Slider container */
+  .news-slider {
+    position: relative;
+    z-index: 1;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+  .news-slider .slick-list {
+    overflow: hidden;
+  }
+  .news-slider .slick-track {
+    display: flex;
+  }
+  .news-slider .slick-slide {
+    box-sizing: border-box;
+    padding: 0 10px;
+    /* ép chỉ 3 slide hiển thị */
+    width: calc(33.333% - 20px) !important;
+  }
+
+  /* Card styling */
+  .news-card {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    margin: 0 auto;
+  }
+  .news-card__img-wrapper {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+  }
+  .news-card__img-wrapper img {
+    width: 100%;
+    display: block;
+  }
+  .news-card__img-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -75%;
+    width: 50%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: skewX(-25deg);
+  }
+  .news-card__img-wrapper:hover::before {
+    animation: sweep 0.7s ease-in-out forwards;
+  }
+
+  .news-card h3 {
+    font-size: 1.1rem;
+    margin: 12px 0 8px;
+    color: #fff;
+  }
+  .news-card p {
+    font-size: 0.95rem;
+    color: #ddd;
+    line-height: 1.4;
+  }
+
+  @keyframes sweep {
+    from { left: -75%; }
+    to { left: 125%; }
+  }

@@ -1,0 +1,57 @@
+/* src/components/Footer.css */
+.footer {
+    background: #1f2a44;
+    color: #fff;
+    padding: clamp(2rem, 5vw, 4rem) 0;
+    margin-top: clamp(4rem, 8vw, 6rem); /* tạo khoảng cách phía trên */
+  }
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 2rem;
+  }
+  .footer__block {
+    flex: 1;
+    min-width: 200px;
+  }
+  .footer__logo img {
+    height: 100px; /* chỉnh chiều cao logo nếu cần */
+  }
+  .footer__block h3 {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  .footer__block p,
+  .footer__block ul li {
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .footer__block ul {
+    list-style: none;
+    padding: 0;
+  }
+  .footer__social a {
+    display: inline-block;
+    margin-right: 0.75rem;
+  }
+  .footer__social img {
+    width: 40px;  /* <- chỉnh chung kích thước icon social */
+    height: 40px;
+  }
+
+  /* Chỉ target đúng icon-cert.png trong <a> cuối cùng */
+  .footer__social > a:last-child img {
+    /* icon-cert.png */
+    width: 120px;  /* <- chỉnh width icon-cert tại đây */
+    height: 40px; /* <- chỉnh height icon-cert tại đây */
+  }
+
+  @media (max-width: 768px) {
+    .footer__inner {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
