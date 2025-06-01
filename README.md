@@ -2,9 +2,9 @@
 
 ### *Bao gồm các bảng:*
 - users
-- profile
+- profiles
 - recipes
-- ingrediens
+- ingredients
 - nutrition_info
 - meals
 - categories
@@ -14,13 +14,13 @@
 
 ### *Mối quan hệ giữa các bảng:*
 
-- users 1-1 profile: mỗi user có 1 profile, 1 profile chỉ thuộc về 1 user.
+- users 1-1 profiles: mỗi user có 1 profile, 1 profile chỉ thuộc về 1 user.
   
-- profile 1-n recipes: mỗi user có thể tạo ra nhiều công thức, 1 công thức được tạo ra bởi 1 user.
+- profiles 1-n recipes: mỗi user có thể tạo ra nhiều công thức, 1 công thức được tạo ra bởi 1 user.
 
-- profile 1-n recommends: mỗi user có thể nhận được nhiều bảng ghi đề xuất, 1 bảng ghi đề xuất chỉ dành riêng cho 1 user cụ thể.
+- profiles 1-n recommends: mỗi user có thể nhận được nhiều bảng ghi đề xuất, 1 bảng ghi đề xuất chỉ dành riêng cho 1 user cụ thể.
 
-- profile n-n meals (pivot: favorites): mỗi user có thể tương tác (thích, mua) với nhiều món, mỗi món có thể phục vụ (được thích bởi, được mua bởi) nhiều user. (nếu có thể em sẽ mở rộng ra, thêm các phương thức thanh toán để cho user có thể shopping)
+- profiles n-n meals (pivot: favorites): mỗi user có thể tương tác (thích, mua) với nhiều món, mỗi món có thể phục vụ (được thích bởi, được mua bởi) nhiều user. (nếu có thể em sẽ mở rộng ra, thêm các phương thức thanh toán để cho user có thể shopping)
 
 - profile 1-n meal_plans: 1 user có nhiều bảng kế hoạch, mỗi bảng kế hoạch được tạo ra bởi 1 user.
 
@@ -41,7 +41,7 @@
 ### Hình ảnh minh họa:
 
 #### **Drawio**
-![ERD-Drawio](./erd.png)
+![ERD-Drawio](.public/images/erd.png)
 
 #### **Diagram**
-![ERD-Diagram](./diagram.png)]
+![ERD-Diagram](.public/images/diagram.png)
