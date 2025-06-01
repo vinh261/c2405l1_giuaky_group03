@@ -1,0 +1,1 @@
+export function cn(...inputs: (string | number | boolean | null | undefined)[]): string;

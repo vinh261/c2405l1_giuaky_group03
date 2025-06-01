@@ -1,0 +1,157 @@
+@import url("https://fonts.googleapis.com/css2?family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap");
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-family: "Mulish", sans-serif;
+    --sub-bg-dark: #252728;
+    --primary-bg-dark: #1c1c1d;
+    --primary-text-dark: --var(--color-slate-50);
+    --primary-text-light: --var(--color-slate-900);
+    --item-bg-dark: #151b23;
+    --item-content-bg-dark: #0d1117;
+}
+
+@layer base {
+    body {
+        @apply font-family text-sm;
+        scrollbar-color: #cbd5e1 transparent;
+    }
+    body.dark {
+        scrollbar-color: #334155 transparent;
+    }
+    button {
+        @apply cursor-pointer;
+    }
+}
+
+@layer component {
+    /* Header */
+    .menu-item {
+        @apply hover:underline underline-offset-6 decoration-2;
+        &.active {
+            @apply underline text-rose-600/80 dark:text-blue-900;
+        }
+    }
+
+    /* Login */
+    .bg-login {
+        @apply bg-[url('/src/assets/images/bg-login.jpg')] bg-cover;
+    }
+    .bg-login::before {
+        @apply  bg-sky-200/30 w-full h-full absolute top-0 left-0;
+        content: "";
+    }
+
+    /* Sidebar */
+    .sidebar-group {
+        @apply flex flex-col w-full gap-y-2;
+    }
+    .sidebar-group-title {
+        @apply overflow-hidden text-ellipsis font-medium text-slate-600 dark:text-slate-400;
+    }
+    .sidebar-item {
+        @apply flex h-[40px] w-full flex-shrink-0 items-center gap-x-3 rounded-lg p-3 text-[15px] font-medium text-slate-900 transition-colors hover:bg-blue-50 dark:text-slate-50 dark:hover:bg-slate-950;
+        &.active {
+            @apply bg-blue-500 text-slate-50 dark:bg-blue-900;
+        }
+    }
+
+    /* Dashboard Page */
+    .table {
+        @apply h-full w-full text-slate-900 dark:text-slate-50;
+    }
+    .table-header {
+        @apply sticky top-0 bg-slate-200 transition-[background] dark:bg-slate-800;
+    }
+    .table-row {
+        @apply transition-colors;
+    }
+    .table-header-item {
+        @apply h-12 px-4 text-start;
+    }
+    .table-body-item {
+        @apply w-fit p-4 font-medium first:w-15 nth-2:w-[400px] nth-6:w-[300px] nth-6:overflow-x-hidden;
+    }
+
+    /* Dashboard Page - Chart - Analytics */
+    .card {
+        @apply flex flex-col gap-y-4 rounded-lg border border-slate-300 bg-white p-4 transition-colors dark:border-slate-700 dark:bg-(--item-bg-dark);
+    }
+    .title {
+        @apply text-3xl font-semibold text-slate-900 transition-colors dark:text-slate-50;
+    }
+    .card-header {
+        @apply flex items-center gap-x-2;
+    }
+    .card-title {
+        @apply font-bold uppercase text-slate-900 transition-colors dark:text-slate-50;
+    }
+    .card-body {
+        @apply flex flex-col gap-y-2 rounded-lg p-4;
+    }
+
+    /* Member Panel */
+    .dialog-description {
+        @apply grid grid-cols-3 gap-x-2;
+    }
+    .dialog-description > div:last-child {
+        @apply grid content-center gap-1;
+    }
+    .dialog-view-profile {
+        @apply grid py-4;
+    }
+    .dialog-view-profile > div {
+        @apply grid grid-cols-3 content-center py-2 border-b border-dashed border-slate-300 dark:border-slate-700 last:border-0;
+    }
+    .dialog-view-profile > div > p:first-child {
+        @apply content-center;
+    }
+    .dialog-view-profile > div > p:last-child {
+        @apply col-span-2 min-w-[300px] border border-slate-300 dark:border-slate-700 hover:border-slate-500 dark:hover:border-slate-400 rounded-md px-2 py-1;
+    }
+
+    /* Header Panel */
+    .btn-ghost {
+        @apply flex h-10 flex-shrink-0 items-center justify-center gap-x-2 rounded-lg p-2 text-slate-400 transition-colors hover:bg-blue-50 hover:text-slate-500 dark:hover:bg-blue-950 dark:hover:text-slate-300;
+    }
+
+    /* Footer Panel */
+    .link {
+        @apply text-base font-medium text-slate-900 transition-colors hover:underline dark:text-slate-50 capitalize;
+    }
+
+    /* Command Search */
+    .input {
+        @apply hidden h-10 flex-shrink-0 items-center gap-x-2 rounded-lg border border-slate-400 px-2 text-base text-slate-900 transition-colors dark:border-slate-700 dark:text-slate-50 md:flex md:w-auto lg:w-80;
+    }
+}
+
+/* "recharts" */
+.recharts-default-tooltip {
+    @apply !rounded-lg !border !border-slate-300 !bg-white !shadow-lg transition-colors dark:!border-slate-700 dark:!bg-slate-900;
+}
+
+.recharts-tooltip-label {
+    @apply text-base font-medium text-slate-900 transition-colors dark:text-slate-50;
+}
+
+.recharts-tooltip-item {
+    @apply text-base font-medium !text-blue-500 transition-colors dark:!text-blue-600;
+}
+
+/* FORM SHADCN */
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+}
+
+.dark input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(1); /* Áp dụng filter khi có class .dark */
+    cursor: pointer;
+}
+
+.form-message {
+    color: #ff4d4f;
+    font-size: 13px;
+}
