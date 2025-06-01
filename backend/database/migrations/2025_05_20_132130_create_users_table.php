@@ -14,8 +14,11 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->string('user_id', 50)->primary();
             $table->string('email', 50)->unique();
-            $table->timestamp('email_verified_at')->nullable();
+
+            // Giữ một dòng duy nhất cho cột password
             $table->string('password', 80);
+
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });
