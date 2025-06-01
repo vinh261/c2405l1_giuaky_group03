@@ -1,4 +1,5 @@
 // src/pages/Home.jsx
+
 import React, { useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick-theme.css';
@@ -91,7 +92,7 @@ export default function Home() {
           backgroundPosition: 'center',
           backgroundSize: 'cover',
           backgroundRepeat: 'no-repeat',
-          position: 'relative'
+          position: 'relative',
         }}
       >
         <div className="products-wrapper">
@@ -111,6 +112,7 @@ export default function Home() {
 
       {/* News Section */}
       <NewsSection />
+
       <Footer />
     </>
   );

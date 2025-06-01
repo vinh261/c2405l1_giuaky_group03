@@ -1,13 +1,16 @@
 /* src/components/BannerSlider.css */
+
 .banner-slider {
-    /* full-bleed slider */
     position: relative;
     width: 100vw;
-    height: clamp(50vh, 60vw, 800px); /* fluid height between 50vh and 800px */
-    margin-top: 1rem;            /* space below header */
-    margin-left: calc(50% - 50vw);
-    overflow: hidden;
-    z-index: 0;
+    height: clamp(50vh, 60vw, 800px);
+
+    /* Banner nằm ngay bên dưới header, không có margin-top */
+      height: clamp(50vh, 60vw, 800px);
+      /* dính sát header – nếu còn đường kẻ mảnh, kéo banner chồm lên 1 px */
+      margin-top: -1px;          /* xóa hoàn toàn dải trắng */
+      overflow: hidden;
+      z-index: 0;
   }
 
   .banner-slider .slide {
@@ -27,7 +30,6 @@
     opacity: 1;
   }
 
-  /* Responsive: ensure slider height adapts */
   @media (max-width: 768px) {
     .banner-slider {
       height: clamp(40vh, 50vw, 500px);

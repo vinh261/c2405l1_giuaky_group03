@@ -1,65 +1,137 @@
-/* src/components/Header.css */
-.header {
-    background: #fff;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-    padding: clamp(0.5rem, 2vw, 1rem) clamp(1rem, 4vw, 2rem);
-    position: relative;
-    z-index: 10;
+/* ───────────────────────────────
+   Healthy-Eating  Header
+──────────────────────────────────*/
+:root{
+    --green:#28a745;
+    --green-dark:#1e7e34;
+    --gray-900:#333;
+    --gray-200:#eee;
+    --shadow:0 4px 12px rgba(0,0,0,.08);
   }
 
-  .header__inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1140px;
-    margin: 0 auto;
-    width: 100%;
-    gap: clamp(1rem, 4vw, 2rem);
+  /* header khối trắng, bóng nhẹ */
+  .header{
+    background:#fff;
+    box-shadow:0 2px 8px rgba(0,0,0,.05);
+    padding:clamp(.7rem,2vw,1rem) clamp(1rem,4vw,2rem);
+    position:relative;
+    z-index:1000;
+    overflow:visible;
   }
 
-  /* Logo */
-  .header__logo img {
-    height: clamp(40px, 6vw, 60px);
-    width: auto;
+  /* flex container chính */
+  .header__inner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    width:100%;
+    gap:clamp(1rem,4vw,2rem);
   }
 
-  /* Nav */
-  .nav__list {
-    display: flex;
-    gap: clamp(1rem, 4vw, 2rem);
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  /* ---------- Logo ---------- */
+  .header__logo img{
+    height:clamp(48px,6vw,72px);
+    width:auto;
   }
 
-  .nav__list a {
-    color: #333;
-    font-size: clamp(0.9rem, 1vw, 1.1rem);
-    font-weight: 300;
-    text-decoration: none;
-    transition: color .2s;
-  }
+  /* ---------- Nav ---------- */
+  .header__nav{flex:1;min-width:0;overflow:visible;}
+  .nav__list{
 
-  .nav__list a:hover {
-    color: #28a745;
-  }
-
-  /* Hotline */
-  .nav__list .hotline {
-    color: #e63946;
-    font-size: clamp(0.9rem, 1vw, 1.1rem);
-    font-weight: 300;
-  }
-
-  /* Responsive header stacking on mobile */
-  @media (max-width: 600px) {
-    .header__inner {
-      flex-direction: column;
-      align-items: flex-start;
+      display:flex;
+      flex:1;                        /* chiếm hết khoảng trống còn lại */
+      justify-content:space-between; /* trải đều các mục */
+      gap:clamp(.5rem,2vw,1.2rem);   /* (giữ khoảng cách tối thiểu) */
+       list-style:none;
+       margin:0;padding:0;
+       white-space:nowrap;
+       overflow:visible;
     }
-    .nav__list {
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 0.5rem;
-    }
+  .nav__item{position:relative;}
+  .nav__item a,
+  .nav__item .dropdown__toggle{
+    font-size:clamp(1rem,1.15vw,1.1rem);
+    font-weight:500;
+    color:var(--gray-900);
+    text-decoration:none;
+    transition:color .2s,transform .2s;
+  }
+  .nav__item a:hover,
+  .nav__item .dropdown__toggle:hover{
+    color:var(--green);
+    transform:translateY(-2px);
+  }
+  /* active link highlight */
+  .nav__item a.active{color:var(--green);}
+
+  /* ---------- Dropdown ---------- */
+  .dropdown__toggle{cursor:pointer;}
+
+  /* hộp dropdown */
+  .dropdown__list{
+    position:absolute;
+    top:100%;
+    left:0;
+    min-width:220px;
+    padding:6px 0;
+    background:#fff;
+    border:1px solid var(--gray-200);
+    border-radius:4px;
+    box-shadow:var(--shadow);
+    list-style:none;
+    visibility:hidden;opacity:0;transform:translateY(8px);
+    transition:opacity .2s ease,transform .2s ease;
+    z-index:1001;
+  }
+
+  .nav__item--dropdown:hover .dropdown__list{
+    visibility:visible;opacity:1;transform:translateY(0);
+  }
+
+  .dropdown__item{padding:8px 18px;}
+  .dropdown__item a{
+    display:block;
+    font-size:.95rem;
+    color:var(--gray-900);
+    text-decoration:none;
+    transition:background .2s,color .2s;
+  }
+  .dropdown__item a:hover{
+    background:rgba(40,167,69,.08);
+    color:var(--green);
+  }
+
+  /* ---------- Hotline ---------- */
+  .header__hotline{
+    display:flex;align-items:center;gap:.3rem;white-space:nowrap;
+  }
+  .hotline__icon{font-size:1.05rem;color:var(--gray-900);}
+  .hotline__number{
+    font-weight:600;font-size:clamp(1rem,1.15vw,1.05rem);
+    color:#e63946;text-decoration:none;
+  }
+  .hotline__number:hover{opacity:.8;}
+
+  /* ---------- Auth buttons ---------- */
+  .header__auth{display:flex;gap:clamp(.45rem,1vw,.9rem);}
+  .auth__link{
+    position:relative;overflow:hidden;
+    font-size:clamp(.9rem,1vw,1rem);
+    font-weight:500;
+    padding:.5rem 1.2rem;
+    min-width:120px;text-align:center;
+    border-radius:6px;
+    background:var(--green);
+    color:#fff;
+    transition:background .2s,transform .2s;
+  }
+  .auth__link:hover{background:var(--green-dark);transform:translateY(-1px);}
+  /* primary giữ nguyên (cả 2 nút giống nhau, nếu muốn outline cho login, thêm class khác) */
+
+  /* ---------- Responsive ≤600px ---------- */
+  @media(max-width:600px){
+    .header__inner{flex-wrap:wrap;gap:1rem;}
+    .header__nav{order:3;width:100%;overflow-x:auto;}
+    .nav__list{gap:1rem;}
+    .header__auth{order:2;margin-left:auto;}
   }

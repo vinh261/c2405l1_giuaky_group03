@@ -1,15 +1,18 @@
+/* src/pages/Home.css */
+
 .products-section {
     position: relative;
     background: url('../assets/images/banner6.jpg') center/cover no-repeat;
-
   }
+
   .products-wrapper {
     position: relative;
-    z-index: 1;
+    z-index: 1; /* Cho nội dung sản phẩm hiển thị lên trên background */
     max-width: 1200px;
     margin: 0 auto;
     padding: 80px 20px;
   }
+
   .section-title {
     text-align: center;
     font-size: 2rem;
@@ -17,6 +20,7 @@
     margin-bottom: 40px;
     position: relative;
   }
+
   .section-title::after {
     content: '';
     width: 60px;
@@ -27,9 +31,12 @@
     left: 50%;
     transform: translateX(-50%);
   }
+
+  /* Nếu bạn dùng slick carousel */
   .products-slider .slick-slide > div {
     padding: 0 10px;
   }
+
   .slick-prev:before,
   .slick-next:before {
     font-size: 30px;
