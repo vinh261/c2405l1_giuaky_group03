@@ -41,7 +41,7 @@
 ### Hình ảnh minh họa:
 
 #### **Drawio**
-![ERD-Drawio](.public/images/erd.png)
+![ERD-Drawio](./public/images/erd.png)
 
 #### **Diagram**
-![ERD-Diagram](.public/images/diagram.png)
+![ERD-Diagram](./public/images/diagram.png)
