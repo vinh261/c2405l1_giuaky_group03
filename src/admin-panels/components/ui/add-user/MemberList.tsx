@@ -67,6 +67,13 @@ const MemberList = (props: { handleViewMember: (member: FormProps) => void }) =>
                                     setIsOpen(false); // Ẩn gợi ý khi mất focus
                                 }, 150); // 150ms, có thể điều chỉnh nếu cần
                             }}
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault(); // Ngăn hành vi mặc định của Enter
+                                    console.log("Enter pressed:", search); // Thực hiện hành động mong muốn
+                                    handleSearch(search);
+                                }
+                            }}
                             value={search}
                             autoComplete="off"
                         />

@@ -46,7 +46,8 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                         type="text"
                                         className="placeholder:text-slate-600/70 dark:placeholder:text-slate-400/70 focus-visible:ring-0  border-slate-400 dark:border-slate-700" 
                                         placeholder="hehehe" 
-                                        {...field} 
+                                        value={field.value || ""}
+                                        onChange={(e) => field.onChange(e.target.value)}
                                     />
                                 </FormControl>
                                 <FormMessage className="form-message" />
@@ -67,7 +68,9 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                             type="text"
                                             className="placeholder:text-slate-600/70 dark:placeholder:text-slate-400/70 focus-visible:ring-0  border-slate-400 dark:border-slate-700" 
                                             placeholder="0123 456 789"
-                                            {...field} />
+                                            value={field.value || ""}
+                                            onChange={(e) => field.onChange(e.target.value)} 
+                                        />
                                     </FormControl>
                                     <FormMessage className="form-message" />
                                 </FormItem>
@@ -106,7 +109,8 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                     <Input 
                                     type="email"
                                     placeholder="hld@shadcn.com" 
-                                    {...field}
+                                    value={field.value || ""}
+                                    onChange={(e) => field.onChange(e.target.value)}
                                     className="placeholder:text-slate-600/70 dark:placeholder:text-slate-400/70 focus-visible:ring-0  border-slate-400 dark:border-slate-700"
                                 />
                                 </FormControl>
@@ -126,7 +130,8 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                 <FormControl>
                                     <Input 
                                         type="string" 
-                                        {...field}
+                                        value={field.value || ""}
+                                        onChange={(e) => field.onChange(e.target.value)}
                                         className="placeholder:text-slate-600/70 dark:placeholder:text-slate-400/70 focus-visible:ring-0  border-slate-400 dark:border-slate-700"
                                         placeholder="60"
                                 />
@@ -146,7 +151,8 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                 <FormControl>
                                     <Input 
                                         type="string" 
-                                        {...field} 
+                                        value={field.value || ""}
+                                        onChange={(e) => field.onChange(e.target.value)}
                                         className="placeholder:text-slate-600/70 dark:placeholder:text-slate-400/70 focus-visible:ring-0  border-slate-400 dark:border-slate-700" 
                                         placeholder="170"
                                     />
@@ -167,7 +173,8 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                             <FormControl>
                                 <Input 
                                     type="password" 
-                                    {...field} 
+                                    value={field.value || ""}
+                                    onChange={(e) => field.onChange(e.target.value)}
                                     className="placeholder:text-slate-600/70 dark:placeholder:text-slate-400/70 focus-visible:ring-0  border-slate-400 dark:border-slate-700" 
                                 />
                             </FormControl>
@@ -188,7 +195,8 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                     <Input 
                                         type="text"
                                         placeholder="Nhân viên văn phòng" 
-                                        {...field} 
+                                        value={field.value || ""}
+                                        onChange={(e) => field.onChange(e.target.value)}
                                         className="placeholder:text-slate-600/70 dark:placeholder:text-slate-400/70 focus-visible:ring-0  border-slate-400 dark:border-slate-700" 
                                     />
                                 </FormControl>
@@ -208,7 +216,7 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                 <Select
                                     options={genderOptions}
                                     onChange={(option) => field.onChange(option?.value)}
-                                    value={genderOptions.find((opt) => opt.value === field.value)}
+                                    value={genderOptions.find((opt) => opt.value === field.value) || null}
                                     styles={customStyles}
                                     placeholder="Chọn giới tính"
                                     className="placeholder:text-slate-600/70 dark:placeholder:text-slate-400/70 focus-visible:ring-0  border-slate-400 dark:border-slate-700 whitespace-nowrap"
@@ -232,8 +240,9 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                 <Select
                                     options={countries}
                                     onChange={(option) => field.onChange(option?.value)}
-                                    value={countries.find((opt) => opt.value === field.value)}
+                                    value={countries.find((opt) => opt.value === field.value) || null}
                                     styles={customStyles}
+                                    isClearable
                                 />
                             </FormControl>
                             <FormMessage className="form-message" />
@@ -252,8 +261,9 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                 <Select
                                     options={cities}
                                     onChange={(option) => field.onChange(option?.value)}
-                                    value={cities.find((opt) => opt.value === field.value)}
+                                    value={cities.find((opt) => opt.value === field.value) || null}
                                     styles={customStyles}
+                                    isClearable
                                 />
                             </FormControl>
                             <FormMessage className="form-message" />
@@ -272,8 +282,9 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                 <Select
                                     options={districts}
                                     onChange={(option) => field.onChange(option?.value)}
-                                    value={districts.find((opt) => opt.value === field.value)}
+                                    value={districts.find((opt) => opt.value === field.value) || null}
                                     styles={customStyles}
+                                    isClearable
                                 />
                             </FormControl>
                             <FormMessage className="form-message" />
@@ -292,8 +303,9 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                 <Select
                                     options={wards}
                                     onChange={(option) => field.onChange(option?.value)}
-                                    value={wards.find((opt) => opt.value === field.value)}
+                                    value={wards.find((opt) => opt.value === field.value) || null}
                                     styles={customStyles}
+                                    isClearable
                                 />
                             </FormControl>
                             <FormMessage className="form-message" />
@@ -312,8 +324,9 @@ const AddForm = ({ form, onSubmit }: AddFormType) => {
                                 <Textarea 
                                     rows={4} 
                                     placeholder="Nhập ghi chú nếu có..." 
-                                    {...field} 
+                                    value={field.value || ""}
                                     className="border-slate-400 dark:border-slate-700 focus-visible:ring-0"
+                                    onChange={(e) => field.onChange(e.target.value)}
                                 />
                             </FormControl>
                             <FormMessage className="form-message" />

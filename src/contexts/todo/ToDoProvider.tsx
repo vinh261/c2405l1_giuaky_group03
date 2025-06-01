@@ -160,8 +160,12 @@ const ToDoProvider = ({children}: {children: React.ReactNode}) => {
 
         if (lowercasedSearch.length > 0 && memberList) {
             const filteredSuggestions = memberList
-                .map(member => member.user_name) // Chỉ lấy user_name để làm gợi ý, hoặc các trường khác
-                .filter(name => name?.toLowerCase().includes(lowercasedSearch)) // Lọc theo từ khóa tìm kiếm
+                .flatMap(member => 
+                    [member.user_name, member.address, member.user.email, member.phone]) // Lấy các trường làm gợi ý
+                .filter(
+                    (name): name is string =>
+                        typeof name === "string" && name.toLowerCase().includes(lowercasedSearch)
+                ) // Lọc theo từ khóa tìm kiếm
                 .slice(0, 5); // Giới hạn số lượng gợi ý
 
             // Loại bỏ các gợi ý trùng lặp nếu có
@@ -223,7 +227,7 @@ const ToDoProvider = ({children}: {children: React.ReactNode}) => {
         if (window.confirm("Bạn có chắc chắn muốn xóa thành viên này không?")) {
             setMemberList(prevList => prevList.filter(member => member.profile_id !== profile_id));
         }
-        // Optionally, add API call to delete member on backend here
+        // i'm workingggggggggggggggggggg.................................
     }, [setMemberList]);
 
     const contextValue = useMemo(() => ({
