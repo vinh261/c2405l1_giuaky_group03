@@ -32,12 +32,12 @@ Route::get('tag/{tag}', [TagController::class, 'show'])->name('tag.show');
 /**
  * Call role from react.
  */
-Route::middleware('auth:sanctum')->get('/role', function (Request $request) {
-    $profile = Profile::where('profile_id', $request->user()->user_id)->first();
-    return response()->json([
-        'role' => $profile->role ?? 'user',
-    ]);
-});
+// Route::middleware('auth:sanctum')->get('/role', function (Request $request) {
+//     $profile = Profile::where('profile_id', $request->user()->user_id)->first();
+//     return response()->json([
+//         'role' => $profile->role ?? 'user',
+//     ]);
+// });
 
 /**
  * Lấy thông tin người dùng đã đăng nhập.
