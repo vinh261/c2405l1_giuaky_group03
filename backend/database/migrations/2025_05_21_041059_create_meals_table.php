@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('meals', function (Blueprint $table) {
             $table->id('meal_id');
             $table->string('meal_name', 50)->unique();
-            $table->string('diet_type', 50)->unique();
+            $table->string('desc');
+            $table->string('diet_type', 50);
             $table->string('image')->nullable();
             $table->unsignedBigInteger('recipe_id');
             $table->timestamps();

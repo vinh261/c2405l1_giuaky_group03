@@ -6,6 +6,7 @@ use App\Models\Favorite;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class FavoriteController extends Controller
 {
@@ -13,15 +14,39 @@ class FavoriteController extends Controller
     {
         try {
             /**
-             * lấy danh sách yêu thích.
-             * @var \App\Models\User $user
-            */
+             * Get user's favorite meals with proper formatting
+             */
             $user = Auth::user();
-            $fav = $user->meals()->with('tags')->get();
+
+            $favorites = $user->profile->meals()
+                ->with([
+                    'recipe.nutrition_info',
+                    'tags',
+                    'categories'
+                ])
+                ->get()
+                ->map(function ($meal) {
+                    return [
+                        'meal_id' => $meal->meal_id,
+                        'meal_name' => $meal->meal_name,
+                        'category' => $meal->categories->first()->category_name ?? 'uncategorized',
+                        'diet_type' => $meal->tags->pluck('tag_name')->toArray(),
+                        'image' => $meal->image,
+                        'desc' => $meal->desc,
+                        'calories' => $meal->recipe?->nutrition_info?->calories ?? 0,
+                        'recipe_id' => $meal->recipe_id,
+                        'created_at' => $meal->created_at->toISOString(),
+                        'updated_at' => $meal->updated_at->toISOString(),
+                        'recipe' => $meal->recipe ? [
+                            'cook_time' => $meal->recipe->cook_time,
+                            'serve' => $meal->recipe->serve,
+                        ] : null
+                    ];
+                });
 
             return response()->json([
                 'success' => true,
-                'data' => $fav,
+                'data' => $favorites,
             ]);
         } catch (Exception $e) {
             return response()->json([
@@ -43,10 +68,9 @@ class FavoriteController extends Controller
             /**
              * Add món.
              * syncWithoutDetaching: đảm bảo các bản ghi không trùng.
-             * @var \App\Models\User $user
              */
             $user = Auth::user();
-            $user->meals()->syncWithoutDetaching($request->meal_id);
+            $user->profile->meals()->syncWithoutDetaching($request->meal_id);
 
             return response()->json([
                 'success' => true,
@@ -61,15 +85,14 @@ class FavoriteController extends Controller
         }
     }
 
-    public function destroy(Request $request)
+    public function destroy($meal_id)
     {
         try {
             /**
              * Xóa món.
-             * @var \App\Models\User $user
              */
             $user = Auth::user();
-            $user->meals()->detach($request->meal_id);
+            $user->profile->meals()->detach($meal_id);
 
             return response()->json([
                 'success' => true,

@@ -63,6 +63,14 @@ class Meal extends Model
     }
 
     /**
+     * relationship with reviews
+     */
+    public function reviews()
+    {
+        return $this->hasMany(Review::class, 'meal_id', 'meal_id');
+    }
+
+    /**
      * ======================================================================================
      * relationship with user thông qua accessor (sử dụng quan hệ của recipe để lấy user).
      * phải có mối quan hệ: meal->recipe->user.

@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('plan_meal_menu', function (Blueprint $table) {
-            $table->enum('time', ['breakfast', 'lunch', 'dinner'])->default('breakfast');
+            $table->enum('time', ['breakfast', 'lunch', 'dinner, snack'])->default('breakfast');
+            $table->date('day');
             $table->unsignedBigInteger('plan_id');
             $table->unsignedBigInteger('meal_id');
             $table->primary(['plan_id', 'meal_id']);

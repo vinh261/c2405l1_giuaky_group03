@@ -11,12 +11,21 @@ class TagController extends Controller
     public function index()
     {
         try {
-            $tags = Tag::with('meals:meal_name')->paginate(10);
+            $tags = Tag::withCount('meals')
+                ->orderBy('tag_name')
+                ->get()
+                ->map(function ($tag) {
+                    return [
+                        'tag_id' => $tag->tag_id,
+                        'tag_name' => $tag->tag_name,
+                        'meals_count' => $tag->meals_count,
+                        'created_at' => $tag->created_at,
+                        'updated_at' => $tag->updated_at
+                    ];
+                });
 
-            return response()->json([
-                'success' => true,
-                'data' => $tags,
-            ]);
+            // Trả về array trực tiếp, không wrap
+            return response()->json($tags);
         }catch (Exception $e) {
             return response()->json([
                 'success' => false,

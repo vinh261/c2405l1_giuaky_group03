@@ -17,7 +17,7 @@ class ProfileController extends Controller
     public function index()
     {
         try {
-            $profile = Profile::with('user')->paginate(10);
+            $profile = Profile::with('user');
 
             return response()->json([
                 'success' => true,

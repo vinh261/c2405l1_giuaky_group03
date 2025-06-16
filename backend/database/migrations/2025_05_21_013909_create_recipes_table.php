@@ -13,9 +13,10 @@ return new class extends Migration
     {
         Schema::create('recipes', function (Blueprint $table) {
             $table->id('recipe_id');
-            $table->string('cuisine_type', 50)->unique();
-            $table->string('desc_step');
+            $table->string('cuisine_type', 50);
+            $table->text('desc_step');
             $table->string('cook_time', 25);
+            $table->unsignedInteger('serve')->default(1);
             $table->string('created_by', 50);
             $table->timestamps();
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('recipe_repairs');
+        Schema::dropIfExists('recipes');
     }
 };

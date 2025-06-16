@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Log;
@@ -52,10 +53,9 @@ class RegisterController extends Controller
                 'user_name' => $user->email, // Mặc định dùng email làm username
             ]);
 
-            /**
-            * Tạo token api dạng string (plainText)
-            */
-            $token = $user->createToken('authToken')->plainTextToken;
+            // Auto login
+            Auth::guard('web')->login($user);
+            $request->session()->regenerate();
 
             return response()->json([
                 'message' => 'Đăng ký thành công',
@@ -63,7 +63,6 @@ class RegisterController extends Controller
                     'user_id' => $user->user_id,
                     'email' => $user->email,
                 ],
-                'token' => $token,
             ], 201);
         } catch (ValidationException $e) {
             return response()->json([

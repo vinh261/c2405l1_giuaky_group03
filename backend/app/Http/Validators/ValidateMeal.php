@@ -6,19 +6,33 @@ use Illuminate\Http\Request;
 
 class ValidateMeal
 {
-    public static function validateMeal(Request $request, $isUpdate = false)
+    public static function validateMeal(Request $request)
     {
         return $request->validate([
-            'meal_name' => $isUpdate
-                        ? 'sometimes|string|min:2|max:50'
-                        : 'required|string|min:2|max:50',
-            'diet_type' => $isUpdate
-                        ? 'sometimes|string|min:2|max:50'
-                        : 'required|string|min:2|max:50',
-            'meal_description' => $isUpdate
-                        ? 'sometimes|string|min:2|max:100'
-                        : 'required|string|min:2|max:100',
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'meal_name' => 'required|string|max:255',
+            'desc' => 'required|string',
+            'image' => 'nullable|url',
+            'category' => 'required|string|in:breakfast,lunch,dinner,snacks,smoothies',
+            'diet_type' => 'required|array',
+            'diet_type.*' => 'string',
+
+            // Recipe validation
+            'recipe.cuisine_type' => 'required|string',
+            'recipe.desc_step' => 'required|string',
+            'recipe.cook_time' => 'required|integer|min:1',
+            'recipe.serve' => 'required|integer|min:1',
+
+            // Nutrition validation
+            'nutrition.calories' => 'required|numeric|min:0',
+            'nutrition.protein' => 'required|numeric|min:0',
+            'nutrition.carbohydrate' => 'required|numeric|min:0',
+            'nutrition.fat' => 'required|numeric|min:0',
+
+            // Ingredients validation
+            'ingredients' => 'required|array|min:1',
+            'ingredients.*.ingredient_name' => 'required|string',
+            'ingredients.*.quantity' => 'required|numeric|min:0',
+            'ingredients.*.units' => 'required|string',
         ]);
     }
 }

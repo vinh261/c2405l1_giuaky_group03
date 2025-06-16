@@ -1,0 +1,95 @@
+//file auth.types.ts:
+export type User = {
+    user_id: string;
+    email: string;
+    profile?: Profile;
+}
+export type Profile = {
+    profile_id: string;
+    user_name: string;
+    phone?: string;
+    image?: string;
+    status?: string;
+    gender?: string;
+    dob?: string;
+    job?: string;
+    height?: number;
+    weight?: number;
+    address?: string;
+    note?: string;
+    role?: string;
+    user?: User;
+}
+export type UserManage = User & {
+    created_at: string;
+    stats: {
+        meals_count: number;
+        favorites_count: number;
+        reviews_count: number;
+    };
+}
+
+//Logic file useManageUser.ts:
+const queryClient = useQueryClient();
+const [searchTerm, setSearchTerm] = useState("");
+const [roleFilter, setRoleFilter] = useState<"all" | "admin" | "user">(
+    "all"
+);
+const [selectedUser, setSelectedUser] = useState<UserManage | null>(null);
+
+// Fetch users
+const { data: users = [], isLoading } = useQuery({
+    queryKey: ["admin-users", searchTerm, roleFilter],
+    queryFn: async () => {
+        const params = new URLSearchParams();
+        if (searchTerm) params.append("search", searchTerm);
+        if (roleFilter !== "all") params.append("role", roleFilter);
+
+        const response = await client.get<UserManage[]>(
+            `/api/admin/profile?${params}`
+        );
+        return response.data;
+    },
+});
+
+// Update user role mutation
+const updateRoleMutation = useMutation({
+    mutationFn: async ({
+        userId,
+        role,
+    }: {
+        userId: string;
+        role: string;
+    }) => {
+        return client.patch(`/api/admin/profile/${userId}/role`, { role });
+    },
+    onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+        toast.success("Cập nhật quyền người dùng thành công");
+    },
+    onError: () => {
+        toast.error("Không thể cập nhật quyền người dùng");
+    },
+});
+
+// Delete user mutation
+const deleteUserMutation = useMutation({
+    mutationFn: async (userId: string) => {
+        return client.delete(`/api/admin/profile/${userId}`);
+    },
+    onSuccess: () => {
+        queryClient.invalidateQueries({ queryKey: ["admin-users"] });
+        toast.success("Xóa người dùng thành công");
+    },
+    onError: () => {
+        toast.error("Không thể xóa người dùng");
+    },
+});
+
+const handleToggleRole = (user: UserManage) => {
+    const newRole = user.profile?.role === "admin" ? "user" : "admin";
+    updateRoleMutation.mutate({ userId: user.user_id, role: newRole });
+};
+
+// file chính UserManagement.tsx chỉ dùng để import logic từ useManageUser và hiển thị giao diện.
+

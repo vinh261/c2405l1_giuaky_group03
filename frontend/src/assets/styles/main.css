@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Chettan+2:wght@400..800&family=Mulish:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+    --font-family: "Baloo Chettan 2", sans-serif;
+    --text-base-color: var(--color-slate-200);
+    --text-second-color: var(--color-slate-800);
+    --text-title: var(--color-lime-500);
+    --btn-hover: var(--color-sky-700);
+    --nav-hover: var(--color-fuchsia-200);
+    --nav-active: var(--color-indigo-400);
+    --icon-color: var(--color-yellow-500/80);
+}
+
+@layer base {
+    body {
+        @apply font-family text-[var(--text-second-color)] bg-[var(--color-slate-50)];
+    }
+    button {
+        @apply cursor-pointer;
+    }
+}
+
+@layer components {
+    /* Header */
+    .menu-item {
+        @apply hover:underline hover:text-[var(--nav-hover)] underline-offset-6 decoration-2;
+        &.active {
+            @apply underline text-[var(--nav-active)];
+        }
+    }
+
+    /* Homepage */
+    .btn-carousel {
+        @apply text-yellow-600 bg-orange-200 hover:bg-yellow-600 hover:text-[var(--text-base-color)] hover:border-yellow-600 disabled:text-slate-500 disabled:opacity-30 transition-colors duration-300 shadow-lg;
+    }
+    .clip-path::after {
+        content: "";
+        height: 200px;
+        width: 100%;
+        position: absolute;
+        background: var(--color-slate-100);
+        clip-path: url(#search-curve);
+        z-index: 1;
+    }
+    .overlay::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 1px;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to top, rgba(0,0,0,0.45) 80%, rgba(0,0,0,0) 100%);
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Sidebar */
+    .sidebar-group {
+        @apply flex flex-col w-full gap-y-2;
+    }
+    .sidebar-group-title {
+        @apply overflow-hidden text-ellipsis font-medium text-slate-600 dark:text-slate-400;
+    }
+    .sidebar-item {
+        @apply flex h-[40px] w-full flex-shrink-0 items-center gap-x-3 rounded-lg p-3 font-medium text-slate-900 transition-colors hover:bg-blue-100 dark:text-slate-200 dark:hover:bg-slate-950;
+        &.active {
+            @apply bg-blue-500 text-slate-200 dark:bg-blue-900;
+        }
+    }
+
+    /* Header Panel */
+    .btn-ghost {
+        @apply flex h-10 flex-shrink-0 bg-slate-100 items-center justify-center gap-x-2 rounded-lg p-2 text-slate-400 transition-colors duration-300 hover:bg-blue-100 hover:text-slate-500 dark:bg-gray-700 dark:hover:bg-slate-600 dark:hover:text-slate-300;
+    }
+
+    /* Dashboard Page - Chart - Analytics */
+    .card {
+        @apply flex flex-col gap-y-4 rounded-lg border border-slate-300 bg-white p-4 transition-colors dark:border-slate-700 dark:bg-[#151b23];
+    }
+    .title {
+        @apply text-3xl font-semibold text-slate-900 transition-colors dark:text-slate-50;
+    }
+    .card-header {
+        @apply flex items-center gap-x-2;
+    }
+    .card-title {
+        @apply font-bold uppercase text-slate-900 transition-colors dark:text-slate-200;
+    }
+    .card-body {
+        @apply flex flex-col gap-y-2 rounded-lg p-4;
+    }
+}
+
+.container {
+    width: 100%;
+    @media (width >= 40rem /* 640px */) {
+        max-width: 40rem /* 640px */;
+    }
+    @media (width >= 48rem /* 768px */) {
+        max-width: 48rem /* 768px */;
+    }
+    @media (width >= 64rem /* 1024px */) {
+        max-width: 64rem /* 1024px */;
+    }
+    @media (width >= 80rem /* 1280px */) {
+        max-width: 80rem /* 1280px */;
+    }
+    @media (width >= 87.5rem /* 1400px */) {
+        max-width: 87.5rem /* 1400px */;
+    }
+}

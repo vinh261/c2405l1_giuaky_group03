@@ -78,7 +78,8 @@ class Profile extends Authenticatable
      */
     public function meals()
     {
-        return $this->belongsToMany(Meal::class, 'favorites', 'profile_id', 'meal_id');
+        return $this->belongsToMany(Meal::class, 'favorites', 'profile_id', 'meal_id')
+                    ->withTimestamps();
     }
 
     /**
@@ -87,5 +88,13 @@ class Profile extends Authenticatable
     public function recommends()
     {
         return $this->hasMany(Recommend::class, 'profile_id', 'profile_id');
+    }
+
+    /**
+     * relationship with reviews
+     */
+    public function reviews()
+    {
+        return $this->hasManyThrough(Review::class, User::class);
     }
 }

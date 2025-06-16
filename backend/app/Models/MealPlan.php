@@ -10,7 +10,8 @@ class MealPlan extends Model
     protected $fillable = [
         'plan_name',
         'start_date',
-        'end_date'
+        'end_date',
+        'profile_id',
     ];
 
     /**
@@ -19,7 +20,7 @@ class MealPlan extends Model
     public function meals()
     {
         return $this->belongsToMany(Meal::class, 'plan_meal_menu', 'plan_id', 'meal_id')
-                    ->withPivot('time');
+                    ->withPivot('day', 'time');
     }
 
     /**

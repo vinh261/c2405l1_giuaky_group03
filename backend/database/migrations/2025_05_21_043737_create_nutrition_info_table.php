@@ -17,6 +17,9 @@ return new class extends Migration
             $table->float('fat', 8, 2);
             $table->float('carbohydrate', 8, 2);
             $table->float('calories', 8, 2);
+            $table->float('fiber', 8, 2)->nullable();
+            $table->float('sugar', 8, 2)->nullable();
+            $table->float('sodium', 8, 2)->nullable();
             $table->unsignedBigInteger('recipe_id');
             $table->timestamps();
 

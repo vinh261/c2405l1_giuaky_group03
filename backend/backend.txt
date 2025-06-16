@@ -1,0 +1,226 @@
+📊 Components đã tạo:
+1. AdminDashboard.tsx - Layout chính với sidebar
+Responsive sidebar
+Navigation giữa các sections
+Logout functionality
+
+2. DashboardStats.tsx - Tổng quan thống kê
+Cards hiển thị stats
+Charts cho categories
+Most favorited meals
+Recent activities
+
+3. UserManagement.tsx - Quản lý users
+Search & filter
+Toggle admin/user role
+Delete users
+User statistics
+
+4. MealManagement.tsx - Quản lý meals
+CRUD operations
+Search & filter by category
+Pagination
+Sử dụng MealFormModal có sẵn
+
+5. CategoryManagement.tsx - Quản lý categories
+Add/Edit/Delete categories
+Hiển thị số meals trong category
+Prevent delete nếu còn meals
+
+6. TagManagement.tsx - Quản lý tags (simplified)
+Grid view
+Add new tags
+Show meal count
+
+7. Bạn đã tạo thêm ReviewManagement.tsx, FavoriteStats.tsx và AdminController.php, bạn đang tạo routes admin cho tôi thì đoạn chat bị giới hạn, dưới đây là admin routes bạn đang tạo, thì trong api routes của tôi đang có ProfileController như file txt lúc nãy tôi vừa gửi, nên tôi không biết là có nên xóa hay giữ nguyên.
+// Admin routes (add after existing routes)
+Route::middleware(['auth:sanctum', 'admin'])->prefix('admin')->group(function () {
+    // Dashboard
+    Route::get('/dashboard-stats', [AdminController::class, 'dashboardStats']);
+
+    // Users management
+    Route::get('/users', [AdminController::class, 'users']);
+    Route::patch('/users/{user}/role', [AdminController::class, 'updateUserRole']);
+    Route::delete('/users/{user}', [AdminController::class, 'deleteUser']);
+
+    // Categories management
+    Route::get('/categories', [AdminController::class, 'categories']);
+    Route::post('/categories', [AdminController::class, 'createCategory']);
+    Route::put('/categories/{category}', [AdminController::class, 'updateCategory']);
+    Route::delete('/categories/{category}', [AdminController::class, 'deleteCategory']);
+
+    // Reviews management
+    Route::delete('/reviews/{review}', [AdminController::class, 'deleteReview']);
+
+    // Favorites statistics
+    Route::get('/favorites/stats', [AdminController::class, 'favoritesStats']);
+});
+
+Còn dưới đây là những gì chúng ta đã làm cùng nhau trong frontend: mình dùng react 19+, typescript 5.8, zustand, zod, react-hook-form, tanstack-query 5.8, tailwindcss v4, ... còn backend mình dùng laravel sanctum cookie-based, nếu cần thêm thông tin gì thì bạn cứ hỏi nha, mình sẽ cung cấp.
++---src
+    �   App.tsx
+    �   main.tsx
+    +---components
+    �   +---auth
+    �   �   +---dashboard-statistic
+    �   �           DasboardStats.tsx
+    �   �           useStatsLogic.tsx
+    �   +---common
+    �   �   +---button
+    �   �   �       ButtonCustom.tsx
+    �   �   �       buttonVariants.ts
+    �   �   +---filter
+    �   �   �       Filter.tsx
+    �   �   +---footer
+    �   �   �       Footer.tsx
+    �   �   +---header
+    �   �   �       Header.tsx
+    �   �   �       useHeaderLogic.ts
+    �   �   +---loading
+    �   �   �       index.ts
+    �   �   �       LoadingSpinner.tsx
+    �   �   +---navbar
+    �   �   �       navItem.tsx
+    �   �   +---pagination
+    �   �   �       Pagination.tsx
+    �   �   +---search
+    �   �           SearchBar.tsx
+    �   �           useDelaySearch.ts
+    �   �           useSearchBarLogic.ts
+    �   +---contact-page
+    �   �       ContactForm.tsx
+    �   +---favorite-page
+    �   �       useFavorite.ts
+    �   +---homepage
+    �   �   +---carousel
+    �   �   �       CarouselHome.tsx
+    �   �   �       carouselHomeItems.ts
+    �   �   +---section-five
+    �   �   �       SectionFive.tsx
+    �   �   �       sectionFiveItems.ts
+    �   �   �       useSectionFiveLogic.ts
+    �   �   +---section-four
+    �   �   �       SectionFour.tsx
+    �   �   +---section-search
+    �   �   �       SectionSearch.tsx
+    �   �   +---section-six
+    �   �   �       SectionSix.tsx
+    �   �   +---section-three
+    �   �   �       SectionThree.tsx
+    �   �   +---section-two
+    �   �           SectionTwo.tsx
+    �   �           sectionTwoItems.ts
+    �   +---layouts
+    �   �       MainLayout.tsx
+    �   +---meal-page
+    �   �   �   useMealPageLogic.ts
+    �   �   +---meal-add-item
+    �   �   �       MealFormModal.tsx
+    �   �   �       mealSchema.ts
+    �   �   �       useMealFormLogic.ts
+    �   �   +---meal-card
+    �   �   �       MealCard.tsx
+    �   �   +---meal-detail
+    �   �   �       MealDetail.tsx
+    �   �   �       MealDetailModal.tsx
+    �   �   �       useMealDetailLogic.ts
+    �   �   +---nutrition-calc
+    �   �           NutritionCalculator.tsx
+    �   �           useNutritionLogic.ts
+    �   +---meal-planner-page
+    �   �   �   useMealPlanner.ts
+    �   �   +---meal-plan-card
+    �   �   �       MealPlanCard.tsx
+    �   �   +---meal-select-modal
+    �   �           MealSelectorModal.tsx
+    �   +---review-page
+    �           useReview.ts
+    +---contexts
+    �       ThemeContext.ts
+    +---data
+    �       mockMeals.data.ts
+    �       nutrition.json
+    +---hooks
+    �   �   useClickOutSide.ts
+    �   �   useFavSync.ts
+    �   �   useTheme.ts
+    �   +---react-query
+    �           useAuthQuery.ts
+    �           useMealQuery.ts
+    +---libs
+    �   +---shadcn
+    �       +---ui
+    �               carousel.tsx
+    +---pages
+    �   �   ContactPage.tsx
+    �   �   FavoritePage.tsx
+    �   �   HomePage.tsx
+    �   �   MealPage.tsx
+    �   �   MealPlannerPage.tsx
+    �   �   ReviewPage.tsx
+    �   �   UserDashboard.tsx
+    �   +---auth
+    �       +---admin-dashboard
+    �       �       AdminDashboard.tsx
+    �       �       SidebarItem.tsx
+    �       +---forgot-password
+    �       �       ForgotPassword.tsx
+    �       �       useForgotPasswordLogic.ts
+    �       +---login
+    �       �       LoginPage.tsx
+    �       �       useLoginLogic.ts
+    �       +---manage-category
+    �       �       CategoryManagement.tsx
+    �       �       useCategoryManage.tsx
+    �       +---manage-fav
+    �       �       FavStats.tsx
+    �       �       useFavStats.tsx
+    �       +---manage-meal
+    �       �       MealManagement.tsx
+    �       +---manage-review
+    �       �       ReviewManage.tsx
+    �       �       useManageReview.tsx
+    �       +---manage-tag
+    �       �       TagManage.tsx
+    �       �       useTagManage.ts
+    �       +---manage-user
+    �       �       useManageUser.ts
+    �       �       UserManagement.tsx
+    �       +---register
+    �       �       RegisterPage.tsx
+    �       �       useRegisterLogic.ts
+    �       +---reset-password
+    �               ResetPassword.tsx
+    �               useResetPasswordLogic.ts
+    +---providers
+    �       AuthInitialize.tsx
+    �       QueryProvider.tsx
+    �       ThemeProvider.tsx
+    +---routes
+    �       AppRoute.tsx
+    �       GuestRoute.tsx
+    �       ProtectedRoute.tsx
+    +---services
+    �   �   getWeek.service.ts
+    �   �   nutritionCalc.service.ts
+    �   +---api
+    �           auth.service.ts
+    �           client.ts
+    �           mealPlan.service.ts
+    �           protectedMeal.service.ts
+    �           publicMeals.service.ts
+    +---stores
+    �       authStore.ts
+    �       mealStore.ts
+    +---types
+    �       api.types.ts
+    �       auth.types.ts
+    �       meals.types.ts
+    �       nutrition.types.ts
+    �       search.type.ts
+    �       vite-env.d.ts
+    +---utils
+        �   cn.ts
+        �
+        +---helpers
+                format.helper.ts
