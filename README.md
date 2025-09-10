@@ -1,61 +1,47 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Tổng quan sơ đồ ERD
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+### *Bao gồm các bảng:*
+- users
+- profiles
+- recipes
+- ingredients
+- nutrition_info
+- meals
+- categories
+- tags
+- recommends (1 bảng ghi tập hợp nhiều đề xuất)
+- meal_plans
 
-## About Laravel
+### *Mối quan hệ giữa các bảng:*
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- users 1-1 profiles: mỗi user có 1 profile, 1 profile chỉ thuộc về 1 user.
+  
+- profiles 1-n recipes: mỗi user có thể tạo ra nhiều công thức, 1 công thức được tạo ra bởi 1 user.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- profiles 1-n recommends: mỗi user có thể nhận được nhiều bảng ghi đề xuất, 1 bảng ghi đề xuất chỉ dành riêng cho 1 user cụ thể.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- profiles n-n meals (pivot: favorites): mỗi user có thể tương tác (thích, mua) với nhiều món, mỗi món có thể phục vụ (được thích bởi, được mua bởi) nhiều user. (nếu có thể em sẽ mở rộng ra, thêm các phương thức thanh toán để cho user có thể shopping)
 
-## Learning Laravel
+- profile 1-n meal_plans: 1 user có nhiều bảng kế hoạch, mỗi bảng kế hoạch được tạo ra bởi 1 user.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+- recipes 1-1 meals: 1 công thức tạo ra 1 món ăn, 1 món ăn được tạo ra bởi 1 công thức.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+- recipes n-n ingredients (pivot: recipe_ingredients): mỗi công thức cần nhiều nguyên liệu, mỗi nguyên liệu có nhiều công thức dùng.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- recipes 1-1 nutrition_info: 1 công thức có 1 bảng dinh dưỡng cụ thể, 1 bảng dinh dưỡng chỉ thuộc về 1 công thức nhất định. (tách ra để dễ làm việc, tính toán dinh dưỡng)
 
-## Laravel Sponsors
+- meals n-n categories (pivot: category_meal): mỗi món ăn có thể nằm trong nhiều danh mục, mỗi danh mục có thể chứa nhiều món ăn.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+- meals n-n tags (pivot: meal_tag): mỗi món ăn có thể gán nhiều tag, mỗi tag có thể được gán bởi nhiều món ăn.
 
-### Premium Partners
+- meals n-n recommends (pivot_recommend_detail): mỗi món ăn có thể nằm trong nhiều bộ đề xuất, mỗi bộ đề xuất bao gồm nhiều món ăn.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+- meals n-n meal_plans (pivot: plan_meal_menu): mỗi món ăn có thể nằm trong nhiều bảng kế hoạch, mỗi bảng kế hoạch bao gồm nhiều món ăn.
 
-## Contributing
+### Hình ảnh minh họa:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+#### **Drawio**
+![ERD-Drawio](./public/images/erd.png)
 
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+#### **Diagram**
+![ERD-Diagram](./public/images/diagram.png)
